@@ -12,9 +12,10 @@
     "start": "webpack-dev-server --hot --inline --progress --history-api-fallback --host 0.0.0.0 --port 4500 --config webpack.exhibition.config.js",
     "test": "tslint {components,variables}/**/*.ts{,x}",
     "bump": "npm version patch --no-git-tag-version && git add package.json",
-    "prepublish": "npm run build",
+    "prepublish": "yarn run snyk-protect && npm run build",
     "build-particles": "cat css/particles.css | postcss > dist/particles.css",
-    "build": "tcm css -c -o dist && tsc -d && NODE_ENV=production webpack --config webpack.config.js; npm run build-particles"
+    "build": "tcm css -c -o dist && tsc -d && NODE_ENV=production webpack --config webpack.config.js; npm run build-particles",
+    "snyk-protect": "snyk protect"
   },
   "pre-commit": [
     "test",
@@ -52,6 +53,8 @@
     "isomorphic-fetch": "^2.2.1",
     "object-assign": "^4.1.0",
     "react-dom": "^15.3.2",
-    "webpack-dev-server": "^3.1.2"
-  }
+    "webpack-dev-server": "^3.1.2",
+    "snyk": "^1.316.1"
+  },
+  "snyk": true
 }
